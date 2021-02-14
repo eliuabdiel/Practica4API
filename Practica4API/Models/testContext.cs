@@ -15,6 +15,7 @@ namespace Practica4API.Models
         {
         }
 
+        public virtual DbSet<Marcas> Marcas { get; set; }
         public virtual DbSet<Products> Products { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -28,6 +29,22 @@ namespace Practica4API.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Marcas>(entity =>
+            {
+                entity.ToTable("marcas");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.ImgSrc)
+                    .HasColumnName("imgSrc")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasColumnName("nombre")
+                    .HasMaxLength(45);
+            });
+
             modelBuilder.Entity<Products>(entity =>
             {
                 entity.ToTable("products");
