@@ -26,9 +26,9 @@ namespace Practica4API.Controllers
 
                 return Ok(ListMarcas);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.ToString());
             }
         }
         // GET api/<MarcasController>/5
