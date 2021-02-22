@@ -33,10 +33,22 @@ namespace Practica4API.Controllers
         }
 
         // GET api/<ProductsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{id}", Name = "Get")]
+        public IActionResult Get(int id)
         {
-            return "value";
+            try
+            {
+                testContext db = new testContext();
+
+                //select * from productos where Id=N;
+                Products producto =  db.Products.Where(a => a.Id == id).SingleOrDefault();
+
+                return Ok(producto);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
         }
 
         // POST api/<ProductsController>
