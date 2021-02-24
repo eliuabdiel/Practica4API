@@ -50,6 +50,25 @@ namespace Practica4API.Controllers
                 return BadRequest(e);
             }
         }
+        // GET api/<ProductsController>/5
+        [HttpGet("search/{name}", Name = "GetBusqueda")]
+        public IActionResult GetBusqueda(string name)
+        {
+            try
+            {
+                if (name.Length < 3) return Ok();
+                testContext db = new testContext();
+
+                //select * from productos where Id=N;
+                List<Products> productos = db.Products.Where(a => a.Nombre.Contains(name)).ToList();
+
+                return Ok(productos);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
 
         // POST api/<ProductsController>
         [HttpPost]
